@@ -1,0 +1,133 @@
+<section class="data-page">
+  <div class="data-backdrop" aria-hidden="true"></div>
+  <div class="page-shell">
+    <header class="data-intro">
+      <span class="eyebrow">Interactive Climate Explorer</span>
+      <h1>Discover Pakistan's temperature patterns.</h1>
+      <p>Select a supported city and date range to retrieve daily NASA POWER temperature records.</p>
+    </header>
+
+    <form (ngSubmit)="onSubmit()" #queryForm="ngForm" class="query-card glass-card">
+      <div class="form-heading">
+        <div>
+          <span class="form-kicker">Query configuration</span>
+          <h2>Build your climate request</h2>
+        </div>
+        <span class="api-status"><i></i> NASA POWER API</span>
+      </div>
+
+      <div class="form-grid">
+        <label class="field">
+          <span>Location</span>
+          <select [(ngModel)]="location" name="location" required aria-label="Select Pakistani city">
+            <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Data type</span>
+          <select [(ngModel)]="dataType" name="dataType" required aria-label="Select climate data type">
+            <option value="T2M">Temperature (°C)</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Start date</span>
+          <input type="date" [(ngModel)]="startDate" name="startDate" required />
+        </label>
+
+        <label class="field">
+          <span>End date</span>
+          <input type="date" [(ngModel)]="endDate" name="endDate" required />
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <p>No API key required. Data is requested by geographic coordinates.</p>
+        <button type="submit" [disabled]="queryForm.invalid || loading">
+          <span *ngIf="!loading">Fetch climate data</span>
+          <span *ngIf="loading">Fetching data…</span>
+          <i aria-hidden="true">→</i>
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="loading" class="status-card loading glass-card" role="status">
+      <span class="spinner" aria-hidden="true"></span>
+      <div><strong>Connecting to NASA POWER</strong><p>Retrieving daily climate records for {{ location || 'your selected city' }}.</p></div>
+    </div>
+
+    <div *ngIf="error" class="status-card error glass-card" role="alert">
+      <span aria-hidden="true">!</span>
+      <div><strong>Request could not be completed</strong><p>{{ error }}</p></div>
+    </div>
+
+    <section *ngIf="!loading && !error && data.length > 0" class="results-section">
+      <div class="results-heading">
+        <div>
+          <span class="eyebrow">Results</span>
+          <h2>{{ location }} climate summary</h2>
+          <p>{{ data.length }} daily records · {{ startDate }} to {{ endDate }}</p>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <article class="summary-card glass-card">
+          <span>Average</span>
+          <strong>{{ averageTemperature | number:'1.1-1' }}°C</strong>
+          <small>Across selected dates</small>
+        </article>
+        <article class="summary-card glass-card">
+          <span>Minimum</span>
+          <strong>{{ minimumTemperature | number:'1.1-1' }}°C</strong>
+          <small>Lowest daily value</small>
+        </article>
+        <article class="summary-card glass-card">
+          <span>Maximum</span>
+          <strong>{{ maximumTemperature | number:'1.1-1' }}°C</strong>
+          <small>Highest daily value</small>
+        </article>
+        <article class="summary-card glass-card">
+          <span>Records</span>
+          <strong>{{ data.length }}</strong>
+          <small>Daily observations</small>
+        </article>
+      </div>
+
+      <article class="chart-card glass-card">
+        <div class="card-heading">
+          <div><span>Temperature trend</span><h3>Daily near-surface air temperature</h3></div>
+          <span class="location-pill">{{ location }}</span>
+        </div>
+        <div class="chart-container">
+          <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="chartType"></canvas>
+        </div>
+      </article>
+
+      <article class="records-card glass-card">
+        <div class="card-heading">
+          <div><span>Daily records</span><h3>Temperature observations</h3></div>
+          <span class="location-pill">Page {{ currentPage }} of {{ totalPages }}</span>
+        </div>
+
+        <div class="data-list">
+          <div class="record-row" *ngFor="let item of paginatedData">
+            <span class="record-date">{{ formatDate(item.date) }}</span>
+            <span class="record-value">{{ item.value | number:'1.1-1' }}°C</span>
+          </div>
+        </div>
+
+        <div class="pagination-controls">
+          <button type="button" (click)="prevPage()" [disabled]="currentPage === 1">← Previous</button>
+          <span>Page {{ currentPage }} / {{ totalPages }}</span>
+          <button type="button" (click)="nextPage()" [disabled]="currentPage === totalPages">Next →</button>
+        </div>
+      </article>
+    </section>
+
+    <div *ngIf="!loading && !error && data.length === 0" class="status-card glass-card">
+      <span aria-hidden="true">○</span>
+      <div><strong>No climate records found</strong><p>Try a different city or date range.</p></div>
+    </div>
+  </div>
+</section>

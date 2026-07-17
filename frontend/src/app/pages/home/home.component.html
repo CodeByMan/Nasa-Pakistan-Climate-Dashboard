@@ -1,0 +1,130 @@
+<section class="hero">
+  <div class="stars stars-small" aria-hidden="true"></div>
+  <div class="stars stars-medium" aria-hidden="true"></div>
+  <div class="stars stars-large" aria-hidden="true"></div>
+  <div class="orbital-glow orbital-glow-one" aria-hidden="true"></div>
+  <div class="orbital-glow orbital-glow-two" aria-hidden="true"></div>
+
+  <div class="page-shell hero-shell">
+    <div class="hero-copy">
+      <span class="eyebrow">NASA POWER · Pakistan</span>
+      <h1>
+        Climate intelligence,
+        <span>visualized from space.</span>
+      </h1>
+      <p>
+        Explore daily near-surface temperature trends across major Pakistani cities through a premium,
+        responsive dashboard powered by NASA's global climate data.
+      </p>
+
+      <div class="hero-actions">
+        <a routerLink="/nasa-data" class="button button-primary">
+          Explore climate data
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="#project-overview" class="button button-secondary">View project overview</a>
+      </div>
+
+      <div class="hero-metrics" aria-label="Project highlights">
+        <div>
+          <strong>10</strong>
+          <span>Pakistan cities</span>
+        </div>
+        <div>
+          <strong>Daily</strong>
+          <span>Climate records</span>
+        </div>
+        <div>
+          <strong>Free</strong>
+          <span>No API key</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="project-overview" class="overview-section">
+  <div class="page-shell">
+    <div class="section-heading">
+      <span class="eyebrow">Project Overview</span>
+      <h2>Built for clarity, speed and real-world exploration.</h2>
+      <p>
+        A focused full-stack project demonstrating external API integration, responsive Angular UI,
+        ASP.NET Core services and interactive data visualization without unnecessary enterprise complexity.
+      </p>
+    </div>
+
+    <div class="purpose-grid">
+      <article class="purpose-card glass-card">
+        <span class="card-index">01</span>
+        <div>
+          <h3>Purpose</h3>
+          <p>Connect a clean web experience to NASA POWER and transform raw daily climate values into an understandable city-based dashboard.</p>
+        </div>
+      </article>
+      <article class="purpose-card glass-card">
+        <span class="card-index">02</span>
+        <div>
+          <h3>Scope</h3>
+          <p>Focus on temperature trends for selected Pakistani cities, date-range filtering, chart visualization and paginated records.</p>
+        </div>
+      </article>
+      <article class="purpose-card glass-card">
+        <span class="card-index">03</span>
+        <div>
+          <h3>Experience</h3>
+          <p>Deliver a polished interface that works across small phones, tablets, laptops, desktops and wide displays.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="technology-section">
+  <div class="page-shell">
+    <div class="section-heading compact">
+      <span class="eyebrow">Technology Stack</span>
+      <h2>Modern tools. Simple architecture.</h2>
+    </div>
+
+    <div class="technology-grid">
+      <article class="tech-card glass-card">
+        <span class="icon-wrap angular"><svg viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="icons.angular.icon.path"></path></svg></span>
+        <h3>{{ icons.angular.label }}</h3>
+        <p>{{ icons.angular.description }}</p>
+      </article>
+      <article class="tech-card glass-card">
+        <span class="icon-wrap dotnet"><svg viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="icons.dotnet.icon.path"></path></svg></span>
+        <h3>{{ icons.dotnet.label }}</h3>
+        <p>{{ icons.dotnet.description }}</p>
+      </article>
+      <article class="tech-card glass-card">
+        <span class="icon-wrap chart"><svg viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="icons.chartjs.icon.path"></path></svg></span>
+        <h3>{{ icons.chartjs.label }}</h3>
+        <p>{{ icons.chartjs.description }}</p>
+      </article>
+      <article class="tech-card glass-card">
+        <span class="icon-wrap typescript"><svg viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="icons.typescript.icon.path"></path></svg></span>
+        <h3>{{ icons.typescript.label }}</h3>
+        <p>{{ icons.typescript.description }}</p>
+      </article>
+      <article class="tech-card glass-card">
+        <span class="icon-wrap csharp"><svg viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="icons.csharp.icon.path"></path></svg></span>
+        <h3>{{ icons.csharp.label }}</h3>
+        <p>{{ icons.csharp.description }}</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="page-shell">
+    <div class="cta-card glass-card">
+      <div>
+        <span class="eyebrow">Start Exploring</span>
+        <h2>Choose a city. Select dates. See the climate story.</h2>
+      </div>
+      <a routerLink="/nasa-data" class="button button-primary">Open dashboard <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
