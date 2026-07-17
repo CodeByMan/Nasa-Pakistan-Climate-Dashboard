@@ -18,7 +18,10 @@
 
 ## 📸 Project Screenshots
 
-| Premium Home | Climate Analyzer | Climate Results |
+| Homepage |
+|---|
+| ![Premium home UI preview](docs/screenshots/home.png) | 
+| Premium Home |
 |---|---|---|
 | ![Premium home UI preview](docs/screenshots/home.png) | ![Climate analysis form](docs/screenshots/analyze.png) | ![Climate results dashboard](docs/screenshots/result.png) |
 
@@ -604,7 +607,7 @@ This project demonstrates practical junior full-stack application development sk
 ## 👨‍💻 Author
 
 **Muhammad Ali Nawaz**  
-ASP.NET Developer
+Full Stack ASP.NET Developer
 
 ---
 
