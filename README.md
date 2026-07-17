@@ -21,6 +21,7 @@
 | Homepage |
 |---|
 | ![Premium home UI preview](docs/screenshots/home.png) | 
+
 | Filteration | Result |
 |---|---|
 | ![Climate analysis form](docs/screenshots/analyze.png) | ![Climate results dashboard](docs/screenshots/result.png) |
