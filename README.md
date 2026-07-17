@@ -18,20 +18,18 @@
 
 ## 📸 Project Screenshots
 
-| Premium Home | Climate Explorer |
-|---|---|
-| ![Premium home UI preview](docs/screenshots/home.png) | ![Climate explorer UI preview](docs/screenshots/climate-explorer.png) |
+| Premium Home | Climate Analyzer | Climate Results |
+|---|---|---|
+| ![Premium home UI preview](docs/screenshots/home.png) | ![Climate analysis form](docs/screenshots/analyze.png) | ![Climate results dashboard](docs/screenshots/result.png) |
 
 ### Screenshot Files
 
 ```text
 docs/screenshots/
 ├── home.png
-├── home.svg
-├── climate-explorer.png
-└── climate-explorer.svg
+├── analyze.png
+└── result.png
 ```
-
 ---
 
 ## 🚀 Project Overview
@@ -165,54 +163,61 @@ Climate and Earth-observation datasets are often difficult to explore directly t
 
 ## 🏗 Architecture Overview
 
-The project is split into an ASP.NET Core backend API and an Angular frontend.
+The project is split into an ASP.NET Core backend API, an Angular frontend, and GitHub Pages documentation.
 
 ```text
 NASA-Pakistan-Climate-Dashboard/
 ├── backend/
-│   └── nasa-dashboard-api/
-│       ├── Controllers/
-│       │   └── NasaDataController.cs
-│       ├── Models/
-│       │   └── NasaLocations.cs
-│       ├── Services/
-│       │   └── NasaDataService.cs
-│       ├── Properties/
-│       │   └── launchSettings.json
-│       ├── Program.cs
-│       ├── nasa-dashboard-api.csproj
-│       ├── nasa-dashboard-api.http
-│       ├── appsettings.json
-│       └── Dockerfile
+│   ├── Controllers/
+│   │   └── NasaDataController.cs
+│   ├── Models/
+│   │   └── NasaLocations.cs
+│   ├── Services/
+│   │   └── NasaDataService.cs
+│   ├── Properties/
+│   │   └── launchSettings.json
+│   ├── Program.cs
+│   ├── nasa-dashboard-api.csproj
+│   ├── nasa-dashboard-api.http
+│   ├── appsettings.json
+│   ├── appsettings.Development.json
+│   ├── Dockerfile
+│   └── .dockerignore
 ├── frontend/
-│   └── nasa-dashboard-ui/
-│       ├── src/
-│       │   ├── app/
-│       │   │   ├── pages/
-│       │   │   │   ├── home/
-│       │   │   │   └── nasa-data/
-│       │   │   ├── services/
-│       │   │   ├── app.component.*
-│       │   │   ├── app.config.ts
-│       │   │   └── app.routes.ts
-│       │   ├── assets/
-│       │   ├── index.html
-│       │   ├── main.ts
-│       │   └── styles.scss
-│       ├── angular.json
-│       ├── package.json
-│       ├── package-lock.json
-│       └── .npmrc
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── pages/
+│   │   │   │   ├── home/
+│   │   │   │   └── nasa-data/
+│   │   │   ├── services/
+│   │   │   ├── app.component.*
+│   │   │   ├── app.config.ts
+│   │   │   └── app.routes.ts
+│   │   ├── index.html
+│   │   ├── main.ts
+│   │   └── styles.scss
+│   ├── public/
+│   ├── angular.json
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── tsconfig.json
+│   ├── tsconfig.app.json
+│   ├── tsconfig.spec.json
+│   ├── .npmrc
+│   └── README.md
 ├── docs/
 │   ├── screenshots/
+│   │   ├── home.png
+│   │   ├── analyze.png
+│   │   └── result.png
 │   ├── index.html
 │   └── styles.css
+├── global.json
 ├── NASA-Pakistan-Climate-Dashboard.sln
 ├── README.md
 ├── LICENSE
 └── .gitignore
 ```
-
 ---
 
 ## 🧱 Backend Architecture
@@ -378,14 +383,24 @@ cd nasa-pakistan-climate-dashboard
 
 ### 2️⃣ Run Backend API
 
-From the repository root:
+#### Option A — From the repository root
 
-```bash
-dotnet restore backend/nasa-dashboard-api/nasa-dashboard-api.csproj
-dotnet run --project backend/nasa-dashboard-api/nasa-dashboard-api.csproj --launch-profile http
+```cmd
+dotnet restore ".\backend\nasa-dashboard-api.csproj"
+dotnet run --project ".\backend\nasa-dashboard-api.csproj" --launch-profile http
 ```
 
-For Windows Command Prompt, keep the `dotnet run` command on one line. Do not use PowerShell backticks in Command Prompt.
+#### Option B — From the backend folder
+
+```cmd
+cd backend
+dotnet restore
+dotnet run --launch-profile http
+```
+
+> The backend project file is located directly inside `backend/`. There is no nested `backend/nasa-dashboard-api/` directory.
+
+For Windows Command Prompt, keep each command on one line and do not use PowerShell backticks.
 
 Default API URL:
 
@@ -404,15 +419,14 @@ Health endpoint:
 ```text
 http://localhost:5016/api/nasadata/health
 ```
-
 ---
 
 ### 3️⃣ Run Angular Frontend
 
-Open another terminal:
+Open another terminal and run:
 
-```bash
-cd frontend/nasa-dashboard-ui
+```cmd
+cd frontend
 npm ci
 npm start
 ```
@@ -429,19 +443,21 @@ The frontend targets:
 http://localhost:5016/api/nasadata
 ```
 
+> The Angular `package.json` and `package-lock.json` files are located directly inside `frontend/`. Run npm commands from that folder, not from the repository root.
+
 ### Clean reinstall after an interrupted NPM installation
 
-On Windows Command Prompt, run these commands inside `frontend\nasa-dashboard-ui`:
+On Windows Command Prompt, run these commands inside `frontend`:
 
 ```cmd
 rmdir /s /q node_modules
+rmdir /s /q .angular
 npm cache verify
 npm ci
 npm start
 ```
 
 `npm ci` uses the committed compatibility-tested, registry-neutral lock file and installs Angular 21 cleanly. The frontend `.npmrc` points to the official public npm registry, so no private build registry or global npm version change is required.
-
 ---
 
 ## 🐳 Running the Backend with Docker
@@ -449,7 +465,7 @@ npm start
 Build from the backend directory:
 
 ```bash
-cd backend/nasa-dashboard-api
+cd backend
 docker build -t nasa-pakistan-climate-api .
 ```
 
@@ -465,8 +481,7 @@ Then open:
 API Swagger: http://localhost:5016/swagger
 ```
 
-The Angular frontend should still be run separately with `npm start` unless a frontend container is added later.
-
+The Angular frontend should still be run separately from the `frontend` directory with `npm start` unless a frontend container is added later.
 ---
 
 ## 🏗 Build for Production
@@ -474,14 +489,20 @@ The Angular frontend should still be run separately with `npm start` unless a fr
 ### Backend Publish
 
 ```bash
-cd backend/nasa-dashboard-api
+cd backend
 dotnet publish -c Release -o ./publish
+```
+
+Backend output:
+
+```text
+backend/publish/
 ```
 
 ### Frontend Build
 
 ```bash
-cd frontend/nasa-dashboard-ui
+cd frontend
 npm ci
 npm run build
 ```
@@ -489,7 +510,7 @@ npm run build
 Angular output:
 
 ```text
-frontend/nasa-dashboard-ui/dist/nasa-dashboard-ui/browser/
+frontend/dist/nasa-dashboard-ui/browser/
 ```
 
 ### Recommended Production Settings
@@ -500,7 +521,6 @@ PORT=5016
 Frontend API URL=<deployed-api-url>/api/nasadata
 Allowed CORS origin=<deployed-frontend-url>
 ```
-
 ---
 
 ## 🧪 Testing Checklist
