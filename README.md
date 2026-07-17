@@ -24,7 +24,7 @@
 
 | Filteration | Result |
 |---|---|
-| ![Climate analysis form](docs/screenshots/analyze.png) | ![Climate results dashboard](docs/screenshots/results.png) |
+| ![Climate analysis form](docs/screenshots/analyze.png) | ![Climate results dashboard](docs/screenshots/result.png) |
 
 ### Screenshot Files
 
